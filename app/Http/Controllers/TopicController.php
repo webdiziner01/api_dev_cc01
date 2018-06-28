@@ -25,6 +25,13 @@ class TopicController extends Controller
 			->paginateWith(new IlluminatePaginatorAdapter($topics))
 			->toArray();
 	}
+
+
+
+	public function show(Topic $topic){
+		return fractal()->parseIncludes(['user','posts','posts.user'])->item($topic)->transformWith(new TopicTransformer)->toArray();
+	}
+
     
 	public function store(StoreTopicRequest $request){
 
