@@ -28,4 +28,13 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+
+
+    public function ownsTopic(Topic $topic){
+
+        return $this->id === $topic->user->id;
+    }
+
+
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreTopicRequest;
+use App\Http\Requests\UpdateTopicRequest;
 
 use App\Topic;
 use App\Post;
@@ -51,6 +52,19 @@ class TopicController extends Controller
 		return fractal()->parseIncludes(['user','posts','posts.user'])->item($topic)->transformWith(new TopicTransformer)->toArray();
 
 
+	}
+
+
+
+
+	public function update(UpdateTopicRequest $request, Topic $topic){
+
+		$this->authorize('update',$topic);
+
+		$topic->title = $request->get('title',$topic->title);
+		$topic->save();
+
+		return fractal()->parseIncludes(['user'])->item($topic)->transformWith(new TopicTransformer)->toArray();
 	}
 
 }
