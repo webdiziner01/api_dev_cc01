@@ -28,4 +28,14 @@ Route::prefix('topics')->group(function () {
 	Route::get('/{topic}','TopicController@show');
     Route::post('/', 'TopicController@store')->middleware('auth:api');
     Route::patch('/{topic}', 'TopicController@update')->middleware('auth:api');
+    Route::delete('/{topic}', 'TopicController@destroy')->middleware('auth:api');
+
+
+/*Posts*/
+     
+		Route::prefix('{topic}/posts')->group(function () {
+		    Route::post('/', 'PostController@store')->middleware('auth:api');
+		    Route::delete('/{post}', 'PostController@update')->middleware('auth:api');
+
+		});
 });
